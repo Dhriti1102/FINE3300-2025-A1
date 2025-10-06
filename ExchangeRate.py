@@ -6,12 +6,12 @@ class ExchangeRate:
         self.from_currency = from_currency.upper()
         self.to_currency = to_currency.upper()
 
-    def convert(self):
+    def convert(self):                                                          # reads exchange rate in csv file
         with open('BankOfCanadaExchangeRates.csv', mode='r') as file:
             csvreader = csv.DictReader(file)
             rows = list(csvreader)
-            last_row = rows[-1]  # use most recent exchange rate
-            usd_cad_rate = float(last_row['USD/CAD'])  # directly read the USD/CAD column
+            last_row = rows[-1]                                                 # use most recent exchange rate
+            usd_cad_rate = float(last_row['USD/CAD'])                           # reads the last column 
 
             # Perform conversion
             if self.from_currency == "USD" and self.to_currency == "CAD":
@@ -21,9 +21,10 @@ class ExchangeRate:
             else:
                 print("Conversion not supported. Only USD and CAD supported.")
 
-            return round(converted, 2)  # round instead of format
+            return round(converted, 2)                                          # returns round
 
 
+# Main Execution
 if __name__ == "__main__":
     print("Currency Conversion")
     amount = float(input("Enter the amount: "))
@@ -33,4 +34,5 @@ if __name__ == "__main__":
     exchange = ExchangeRate(amount, from_currency, to_currency)
     result = exchange.convert()
 
+# Final result
     print("Conversion result: " + str(result))
